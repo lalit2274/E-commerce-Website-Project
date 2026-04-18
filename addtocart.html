@@ -1,0 +1,181 @@
+<html>
+    <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta charset="UTF-8">
+        <title>Add to Cart</title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+    <body  onload="loadCart()">
+        <header>  
+            <div class="navbar">
+                <div class="page border ">
+                        
+                       <a href="index.html"  style="color:white"><p class="border"><i class="fa-regular fa-house"></i></p></a>
+                        
+                    </div>
+                <div  class="page border">
+                    <h2  align="center"> Add To Cart</h2>
+                </div>
+
+
+
+
+               
+              
+                 <div class="nav-cart border" >
+            <a href="profile.html" onclick=" return openProfile()" style="color:white">
+                <i class="fa-solid fa-circle-user"></i>
+            </a>
+        </div> 
+
+            </div>
+            
+
+            <div class="panel">
+                
+                    
+                    
+
+            </div>
+        </header>
+
+       
+             <h2>Your Cart</h2>
+
+<div id="cart-container" class="cart-row"></div>
+
+<h3>Total: ₹<span id="total"></span></h3> 
+
+<style>
+.cart-row{
+    display: flex;
+    gap: 20px;
+    overflow-x: auto; /* horizontal scroll */
+    padding: 20px 0;
+}
+
+.cart-item{
+    min-width: 220px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.cart-item img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.delete-btn{
+    margin-top: 10px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+</style>
+
+<script>
+   let container = document.getElementById("cart-container")
+function addToCart(product_id){
+
+let user_id = localStorage.getItem("loginUser")
+
+// 🔥 FIX
+if(!user_id){
+    user_id = "guest";  // default id
+}
+
+fetch("add_to_cart.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`user_id=${user_id}&product_id=${product_id}`
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Added to Cart")
+})
+
+}
+
+/* REMOVE CART */
+function removeCart(cart_id){
+
+fetch("remove_cart.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`cart_id=${cart_id}`
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Item Removed")
+loadCart()
+})
+
+}
+
+
+/* BUY NOW */
+function buyNow(product_id){
+
+window.location.href="checkout.html?id="+product_id
+
+}
+
+function loadCart(){
+
+let user_id = localStorage.getItem("loginUser")
+
+if(!user_id){
+    user_id = "guest";   // same value use karo
+}
+
+fetch("get_cart.php?user_id="+user_id)
+.then(res=>res.json())
+.then(data=>{
+
+let html=""
+let total=0
+
+data.forEach(item=>{
+
+html+=`
+<div class="cart-item">
+<img src="${item.image}">
+<h3>${item.name}</h3>
+<p>₹${item.price}</p>
+
+<button class="delete-btn" onclick="removeCart(${item.cart_id})">Delete</button>
+<button onclick="buyNow(${item.id})">Buy Now</button>
+</div>
+`
+
+total += parseFloat(item.price)
+
+})
+
+document.getElementById("cart-container").innerHTML = html
+document.getElementById("total").innerText = total
+
+})
+}
+</script>
+
+        
+
+        <footer>
+     <p>© 2025 JD Group | All Rights Reserved</p>    
+        </footer>
+
+    </body>
+</html>

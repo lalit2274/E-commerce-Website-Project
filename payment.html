@@ -1,0 +1,180 @@
+<html>
+    <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>payment</title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+
+
+    
+        
+<style>
+
+body{
+font-family:Arial;
+background:#f3f3f3;
+margin:0;
+}
+
+.container{
+width:400px;
+background:white;
+padding:25px;
+margin:60px auto;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h2{
+text-align:center;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#FFD814;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#f7ca00;
+}
+
+.payment-option{
+margin:10px 0;
+}
+
+</style>
+
+</head>
+    <body>
+
+
+
+<div class="container">
+
+<h2>Payment Method</h2>
+
+<label>Select Payment Method</label>
+
+<select id="method" onchange="showPayment()">
+
+<option value="card">Credit / Debit Card</option>
+<option value="upi">UPI</option>
+<option value="cod">Cash On Delivery</option>
+
+</select>
+
+<div id="cardBox">
+
+<input id="cardName" placeholder="Card Holder Name">
+<input id="cardNumber" placeholder="Card Number">
+<input id="expiry" placeholder="Expiry (MM/YY)">
+<input id="cvv" placeholder="CVV">
+
+</div>
+
+<div id="upiBox" style="display:none">
+
+<input id="upi" placeholder="Enter UPI ID">
+
+</div>
+
+<br>
+
+<button onclick="confirmPayment()">Pay Now</button>
+
+</div>
+
+<script>
+function showPayment(){
+
+let method=document.getElementById("method").value
+
+document.getElementById("cardBox").style.display="none"
+document.getElementById("upiBox").style.display="none"
+
+if(method=="card"){
+document.getElementById("cardBox").style.display="block"
+}
+
+if(method=="upi"){
+document.getElementById("upiBox").style.display="block"
+}
+
+}
+function confirmPayment(){
+
+let method=document.getElementById("method").value
+
+let params = new URLSearchParams(window.location.search)
+let product_id = params.get("id")
+
+let user_id = localStorage.getItem("loginUser")
+
+if(!user_id){
+alert("Please Login First")
+window.location.href="login.html"
+return
+}
+
+/* CARD VALIDATION */
+if(method=="card"){
+
+let card=document.getElementById("cardNumber").value
+let cvv=document.getElementById("cvv").value
+
+if(card=="" || cvv==""){
+alert("Enter Card Details")
+return
+}
+
+}
+
+/* UPI VALIDATION */
+if(method=="upi"){
+
+let upi=document.getElementById("upi").value
+
+if(upi==""){
+alert("Enter UPI ID")
+return
+}
+
+}
+
+/* PLACE ORDER IN DB */
+
+fetch("place_order.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`user_id=${encodeURIComponent(user_id)}&product_id=${encodeURIComponent(product_id)}&payment_method=${encodeURIComponent(method)}`
+})
+.then(res=>res.text())
+.then(data=>{
+
+alert("Payment Successful 🎉")
+window.location.href="orders.html"
+
+})
+
+}
+</script>
+
+</body>
+</html> 

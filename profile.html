@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+<title>My Profile</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="loadProfile()">
+
+<div class="profile-container">
+
+    
+<div>
+    <a href="index.html">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+</div><h2>My Profile</h2>
+
+    <div class="profile-card">
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Mobile:</strong> <span id="mobile"></span></p>
+        <p><strong>Address:</strong> <span id="address"></span></p>
+        <button onclick="showEdit()">Edit</button>
+    </div>
+
+   
+    <div id="editBox" style="display:none; margin-top:15px;">
+
+    <input type="text" id="newMobile" placeholder="New Mobile">
+    <input type="text" id="newAddress" placeholder="New Address">
+
+    <button onclick="updateAddress()">Save</button>
+
+</div>
+
+    <button onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+
+</div>
+
+<style>
+/* Modern Reset & Typography */
+* {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f8fb;
+    background-image: radial-gradient(#d1d9e6 1px, transparent 1px);
+    background-size: 20px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #334155;
+}
+
+/* Main Container */
+.profile-container {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+}
+
+/* Profile Information Card */
+.profile-card {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.profile-card p {
+    margin: 12px 0;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+}
+
+.profile-card p:last-of-type {
+    border-bottom: none;
+}
+
+.profile-card strong {
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.profile-card span {
+    color: #0f172a;
+    font-weight: 500;
+}
+
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+    border: none;
+}
+
+/* Edit/Save Button */
+.profile-card button, #editBox button {
+    margin-top: 10px;
+    background: #2563eb;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.profile-card button:hover, #editBox button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* Logout Button (The one at the bottom) */
+.profile-container > button {
+    margin-top: 30px;
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.profile-container > button:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+<script>
+    function showEdit(){
+    document.getElementById("editBox").style.display = "block"
+}
+
+function updateAddress(){
+let user_id = localStorage.getItem("userId")
+let mobile = document.getElementById("newMobile").value
+let address = document.getElementById("newAddress").value
+
+if(mobile=="" || address==""){
+    alert("Fill all fields")
+    return
+}
+
+fetch("update_address.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`user_id=${user_id}&mobile=${mobile}&address=${address}`
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Updated Successfully")
+
+// 🔥 AUTO UPDATE UI (no reload)
+document.getElementById("mobile").innerText = mobile
+document.getElementById("address").innerText = address
+
+// hide edit box
+document.getElementById("editBox").style.display = "none"
+
+// clear fields
+document.getElementById("newMobile").value = ""
+document.getElementById("newAddress").value = ""
+
+})
+}
+function loadProfile(){
+
+let user_id = localStorage.getItem("userId")
+
+fetch("profile_data.php?user_id="+user_id)
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("name").innerText = data.name
+document.getElementById("email").innerText = data.email
+document.getElementById("mobile").innerText = data.mobile
+document.getElementById("address").innerText = data.address
+
+
+})
+}
+
+function logout(){
+localStorage.removeItem("loginUser")
+window.location.href="index.html"
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<html>
+    <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Furniture</title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+
+
+    </head>
+    <body>
+        <header>  
+            <div class="navbar">
+                <div  class="page border">
+                    <h2  align="center">
+                        Furniture
+                    </h2>
+                </div>
+
+               
+                </div>
+
+               <div class="panel">
+
+    <!-- LEFT SIDE -->
+    <div class="panel-left">
+        <div class="panel-all border" onclick="openSidebar()">
+                        <i class="fa-solid fa-bars"></i> 
+                    </div>    
+                     <div id="sidebar" class="sidebar">
+                    <div class="sidebar-header">
+                         <button onclick="closeSidebar()">&#8592; Back</button>
+                        
+                    </div>
+
+                     <a href="index.html">Home</a>
+                     <a href="men.html">Men Clothes</a>
+                     <a href="Health_&_Personal_Care.html">Health & Personal Care</a>
+                     <a href="Women_Cloths.html">Women Clothes</a>
+                     <a href="Mobiles_&_Electronics.html">Mobiles & Electronics</a>
+                     <a href="Furniture.html">Furniture</a>
+                     <a href="Pet_Care.html">Pet Care</a>
+                     <a href="Toys_Section.html">Toys Section</a>
+                    <a href="Beauty_Picks.html">Beauty</a>
+
+                 </div>
+ <div id="overlay" onclick="closeSidebar()"></div>
+        <div class="panel-opstion">
+            <a href="Customer.html">
+                <p class="border">Customer Service</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="panel-right">
+        <div class=" border">
+            <a href="profile.html" onclick="return openProfile()">
+                <i class="fa-solid fa-circle-user"></i>
+            </a>
+        </div> 
+       
+        <div class="nav-singin border">
+            <a href="signup.html" id="userLink">
+                <p><span id="userName">Hello,Register</span></p>
+            </a>
+        </div>
+
+        <div class="nav-return border">
+            <a href="orders.html">
+                <p><span>Return</span></p>
+                <p class="nav-second">& Orders</p>
+            </a>
+        </div>
+
+        <div class="nav-cart border">
+            <a href="addtocart.html">
+                <i class="fa-solid fa-cart-arrow-down"></i> Cart
+            </a>
+        </div>
+
+        <div class="nav-search">
+            <div class="search-icon" onclick="toggleSearch()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <input placeholder="Search Furniture" class="Search-input" id="searchBox" onkeyup="searchProduct()">
+        </div>
+
+    </div>
+
+</div>
+                
+        </header>
+
+
+        <div class="shop-section">
+
+        
+<div id="products"></div>
+
+            </div>
+
+
+
+        
+        
+
+        <footer>
+
+            <p>© 2025 JD Group | All Rights Reserved</p>
+            
+        </footer>
+
+<script>
+ 
+fetch("get_products.php")
+.then(res=>res.json())
+.then(products=>{
+
+let html=""
+
+products.forEach(p=>{
+
+if(p.category=="Furniture"){
+html+=`
+
+<div class="product">
+
+<a href="product.html?id=${p.id}">
+
+<img src="${p.image || 'https://via.placeholder.com/150'}" width="150">
+<h3>${p.name}</h3>
+
+</a>
+
+<p>₹${p.price}</p>
+
+<button onclick="addToCart(${p.id})">Add To Cart</button>
+
+</div>
+
+`
+
+}
+})
+
+document.getElementById("products").innerHTML = html
+
+})
+
+
+function searchProduct(){
+
+let search = document.getElementById("searchBox").value.toLowerCase()
+
+fetch("get_products.php")
+.then(res=>res.json())
+.then(products=>{
+
+let html=""
+
+products.forEach(p=>{
+
+if(p.category=="Furniture" && p.name.toLowerCase().includes(search)){
+
+html+=`
+<div class="product">
+<img src="${p.image || 'https://via.placeholder.com/150'}" width="150">
+<h3>${p.name}</h3>
+<p>₹${p.price}</p>
+<button onclick="addToCart(${p.id})">Add To Cart</button>
+</div>
+`
+
+}
+
+})
+
+document.getElementById("products").innerHTML = html
+
+})
+
+}
+
+
+
+
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,697 @@
+body{
+    background-color: #f4f8fb; /* light professional */
+}
+*{
+    margin:0;
+    font-family:Arial ;
+    box-sizing: border-box;
+
+}
+
+.navbar {
+    height:60px;
+    background-color: #0d1b2a; 
+    color: white;
+    display: flex ;/* heder ma je che te one line kari nakhe */
+    align-items: center;
+    justify-content: center;
+    justify-content: space-evenly;
+
+}
+/* box1*/
+.navbar{
+    height:60px;
+    background-color:#0d1b2a; 
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+
+
+/* box2*/
+.add-first{
+    color:#cccccc;  
+    font-size:0.85rem;
+    margin-left:15px;
+}
+.add-second{
+    font-size:1rem;
+}
+.add-icon{
+    display: flex ;
+    align-items: center;
+}
+/* box3*/
+.nav-search{
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 50px; /* start small */
+    transition: 0.4s ease;
+}
+
+/* when active */
+.nav-search.active{
+    width: 300px;
+}
+
+/* input initially hide */
+.Search-input{
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 0;
+    transition: 0.4s;
+}
+
+/* input show when active */
+.nav-search.active .Search-input{
+    width: 100%;
+}
+
+/* icon */
+.search-icon{
+    width: 50px;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+}
+
+.nav-search:hover{
+    border: 2px solid white;
+}
+/* box4*/
+span{
+    font-size: 0.7rem;
+}
+.nav-second{
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* box5*/
+.nav-cart i{
+    font-size: 30px;
+    
+}
+.nav-cart{
+    font-size: 0.85rem;
+     font-weight: 700;
+
+}
+
+/* panel*/
+.panel{
+    display: flex;
+    justify-content: space-between; /* 🔥 main fix */
+    align-items: center;
+    padding: 8px 20px;
+    background-color: #f3f3f3;
+    color: black;
+
+
+}
+
+
+.panel a{
+    color: black;
+}
+
+.panel-left{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.panel-right{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+
+.panel-opstion p{
+    display: inline;
+    margin-left: 10px;
+}
+
+.panel-opstion{
+    width: auto;
+    font-size: 0.85rem;
+}
+
+.panel-deals{
+    font-size:0.9rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* hero-section*/
+
+
+/*shop-section*/
+
+.shop-section{
+    display: flex;
+    flex-wrap: wrap;/* one row ma only 4  */
+    justify-content: space-evenly;
+    background-color: #f4f8fb;
+}
+.box{
+   /* border: 2px solid black;*/
+    height: 400px;
+    width: 23%;
+    background-color: white;
+    padding: 20px 0px 15px;
+    margin-top: 15px;
+}
+.box-img{
+    height: 300px;
+    background-size: cover;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    
+}
+.box-content{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.box-content p{
+    color:black;
+
+}
+
+/*footer*/
+
+
+footer {
+  clear:both; 
+  background-color:#ffffff;
+  border-top: 1px solid #ddd;
+  text-align:center;
+  padding: 10px;
+  color: #333;
+  
+}
+
+/* add to cart and buy*/
+button{
+
+background:#1e90ff;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:20px;
+}
+
+button:hover{
+    box-shadow:2px #1e90ff;;
+}
+.cartImg{
+    width: 200px;
+}
+/*customer service*/
+
+/* CUSTOMER SERVICE PAGE */
+.customer-service{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: #f5f7fa;
+}
+
+/* FORM BOX */
+.cs-form{
+    background: white;
+    padding: 30px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* HEADING */
+.cs-form h2{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* INPUT + SELECT + TEXTAREA */
+.cs-form input,
+.cs-form select,
+.cs-form textarea{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* FOCUS EFFECT */
+.cs-form input:focus,
+.cs-form select:focus,
+.cs-form textarea:focus{
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+/* TEXTAREA HEIGHT */
+.cs-form textarea{
+    height: 100px;
+    resize: none;
+}
+
+/* BUTTON */
+.cs-form button{
+    width: 100%;
+    padding: 12px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* BUTTON HOVER */
+.cs-form button:hover{
+    background: #333;
+}
+
+/* link ni niche line aave te remove thase*/
+a{
+    text-decoration: none;
+}
+.link{
+    text-decoration: none;
+}
+/*sidebar*/
+.sidebar{
+height:100%;
+width:0;
+position:fixed;
+top:0;
+left:0;
+background:#0d1b2a;
+overflow-x:hidden;
+transition:0.3s;
+padding-top:20px;
+z-index:1000;
+}
+
+.sidebar a{
+display:block;
+color:white;
+padding:10px 20px;
+text-decoration:none;
+}
+
+.sidebar a:hover{
+background:#1e3a5f;
+}
+
+.sidebar-header button{
+background:none;
+border:none;
+color:white;
+font-size:18px;
+padding:10px 20px;
+cursor:pointer;
+}
+#overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    
+    display: none; /* initially hide */
+    z-index: 999;
+}
+
+/*img horizontal*/
+
+.product{
+width:220px;
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 8px rgba(0,0,0,0.1);
+text-align:center;
+transition: 0.3s ease;
+}
+
+.product:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.product img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:8px;
+  transition: 0.3s ease;
+}
+
+.product:hover img{
+    transform: scale(1.08);
+}
+
+.product button{
+background:#1e90ff;;
+border:none;
+padding:8px 15px;
+margin-top:10px;
+cursor:pointer;
+border-radius:5px;
+transition: 0.3s;
+
+
+}
+.product button:hover{
+    background-color: #0d6efd;
+    transform: scale(1.05);
+}
+#products{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+padding:20px;
+}
+/* PRODUCT DETAILS LAYOUT */
+.product-details{
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 40px;
+
+    background: white;              /* 🔥 ADD */
+    border-radius: 12px;            /* 🔥 ADD */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 🔥 ADD */
+
+    transition: 0.3s ease;
+}
+
+/* IMAGE LEFT */
+.product-image{
+    flex: 1;
+    max-width: 350px;
+}
+
+.product-image img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: 0.3s ease;
+}
+.product-image img:hover{
+    transform: scale(1.08); /* zoom */
+}
+.product-details{
+    transition: 0.3s ease;
+}
+
+.product-details:hover{
+    transform: translateY(-8px);   /* more visible */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* 🔥 important */
+}
+.product-info button{
+    transition: 0.3s;
+}
+
+.product-info button:hover{
+    background-color: #0d6efd; /* dark blue */
+    transform: scale(1.08);
+}
+.product-image{
+    transition: 0.3s;
+}
+
+.product-image:hover{
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+
+/* INFO RIGHT */
+.product-info{
+    flex: 2;
+}
+
+/* BUTTON LINE */
+.product-info button{
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+/*Orders card*/
+#orders div{
+display:flex;
+gap:20px;
+align-items:center;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+/* ================= GRID LAYOUT ================= */
+
+#orders{
+display:grid;
+grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.order-card{
+background:white;
+border-radius:10px;
+padding:15px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+text-align:center;
+transition:0.2s;
+display:block;
+}
+
+.order-card:hover{
+transform:scale(1.05);
+}
+
+.order-card img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.order-card h2{
+font-size:18px;
+margin:10px 0;
+}
+
+.order-card p{
+font-size:14px;
+margin:5px 0;
+}
+
+.order-actions{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:8px;
+margin-top:10px;
+}
+
+.order-actions button{
+padding:6px 12px;
+border-radius:20px;
+background:#1e90ff;;
+border:none;
+cursor:pointer;
+font-size:12px;
+}
+/* DEFAULT = Desktop */
+.box{
+    width: 23%;
+    margin: 1%;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px){
+
+    .box{
+        width: 100%;   /* full width */
+    }
+
+    .panel-right{
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-search{
+        width: 100%;
+    }
+
+    .Search-input{
+        width: 100%;
+    }
+}
+
+/* 📱 SMALL MOBILE */
+@media (max-width: 480px){
+
+    .navbar h2{
+        font-size: 16px;
+    }
+
+    .box{
+        width: 100%;
+    }
+
+    .product{
+        width: 100%;
+    }
+}
+@media (max-width: 768px){
+
+    .navbar{
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+    }
+
+    .panel{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .panel-right{
+        width: 100%;
+        justify-content: space-between;
+    }
+
+}
+@media (max-width: 768px){
+
+    .nav-search{
+        width: 100%;
+    }
+
+    .Search-input{
+        width: 100%;
+    }
+
+}
+.box{
+    width: 23%;
+}
+/* 💻 Desktop */
+.box{
+    width: 23%;
+}
+
+/* 📲 Tablet */
+@media (max-width: 992px){
+    .box{
+        width: 45%;
+    }
+}
+
+/* 📱 Mobile */
+@media (max-width: 576px){
+    .box{
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px){
+
+    #products{
+        justify-content: center;
+    }
+
+    .product{
+        width: 90%;
+    }
+
+}
+@media (max-width: 768px){
+
+    #orders{
+        grid-template-columns: 1fr;
+    }
+
+    .order-card{
+        width: 100%;
+    }
+
+}
+@media (max-width: 768px){
+
+    .sidebar{
+        width: 0;
+    }
+
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;  /* 🔥 LEFT - RIGHT */
+    align-items: center;
+    padding: 10px 20px;
+    background: #1f2f46;
+}
+
+/* left side (home) */
+.navbar .page:first-child{
+    flex: 1;
+}
+
+/* center (title) */
+.navbar .page:nth-child(2){
+    text-align: center;
+    flex: 1;
+}
+
+/* right side (profile) */
+.nav-cart{
+    flex: 1;
+    text-align: right;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Right side items */
+.panel-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Profile icon ne fix size & alignment */
+.panel-right i {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Optional: right side push */
+.panel-right {
+    margin-left: auto;
+}

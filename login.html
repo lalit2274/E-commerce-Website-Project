@@ -1,0 +1,192 @@
+<html>
+    <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>login </title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+
+
+    </head>
+    <body>
+        
+
+
+
+<style>
+body{
+    font-family: 'Segoe UI', sans-serif;
+    height:100vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+.login-box{
+    background:white;
+    padding:35px;
+    width:350px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:center;
+    animation:fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.login-box h2{
+    margin-bottom:20px;
+    color:#333;
+}
+
+.input-group{
+    position:relative;
+}
+
+.input-group i{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#999;
+}
+
+input{
+    width:100%;
+    padding:12px 12px 12px 40px;
+    margin-top:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    transition:0.3s;
+}
+
+input:focus{
+    border-color:#2a5298;
+    box-shadow:0 0 5px rgba(42,82,152,0.4);
+}
+
+button{
+    width:100%;
+    background:#2a5298;
+    color:white;
+    border:none;
+    padding:12px;
+    margin-top:18px;
+    cursor:pointer;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#1e3c72;
+    transform:scale(1.03);
+}
+
+p{
+    font-size:14px;
+    margin-top:15px;
+}
+
+a{
+    color:#2a5298;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="login-box">
+
+<h2>Sign in</h2>
+
+<div class="input-group">
+    <i class="fa fa-envelope"></i>
+    <input type="text" id="email" placeholder="Email or mobile number">
+</div>
+
+<div class="input-group">
+    <i class="fa fa-lock"></i>
+    <input type="password" id="password" placeholder="Password">
+</div>
+
+<button onclick="login()">Sign in</button>
+
+<p>New user? <a href="signup.html">Create your account</a></p>
+
+</div>
+
+<script>
+function login(){
+
+let email = document.getElementById("email").value
+let password = document.getElementById("password").value
+
+/* ADMIN LOGIN */
+if(email === "admin@gmail.com" && password === "admin123"){
+
+localStorage.setItem("admin","true")
+
+alert("Admin Login Successful")
+
+window.location.href="admin.html"
+
+return
+}
+
+/* USER LOGIN (DB) */
+
+fetch("login.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+})
+.then(res=>res.text())
+.then(data=>{
+
+if(data.includes("success")){
+
+    let parts = data.split("|")
+
+    let user_id = parts[1]
+    let user_name = parts[2]
+
+    // ✅ correct storage
+    localStorage.setItem("userId", user_id)
+    localStorage.setItem("loginUser", user_name)
+
+    alert("Login Successful")
+    window.location.href="index.html"
+
+}else{
+    alert("Invalid Login")
+}
+
+})
+
+}
+
+
+
+</script>
+
+</body>
+</html>
+
+    

@@ -1,0 +1,219 @@
+<html>
+<head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Checkout</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
+<style>
+
+/* BODY */
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#eef2f3,#dfe9f3);
+}
+
+/* MAIN CONTAINER */
+.checkout-container{
+    max-width:900px;
+    margin:40px auto;
+    display:flex;
+    gap:20px;
+}
+
+/* LEFT SIDE */
+.checkout-form{
+    flex:2;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* RIGHT SIDE */
+.summary{
+    flex:1;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* HEADING */
+.checkout-form h2{
+    margin-bottom:15px;
+}
+
+/* INPUT */
+.input-group{
+    margin-bottom:15px;
+}
+
+.input-group label{
+    font-size:14px;
+    font-weight:600;
+}
+
+.input-group input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+/* BUTTON */
+.btn{
+    width:100%;
+    padding:12px;
+    background:#ff9900;
+    border:none;
+    color:white;
+    font-weight:bold;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#e68a00;
+}
+
+/* SUMMARY */
+.summary h3{
+    margin-bottom:15px;
+}
+
+.summary p{
+    font-size:14px;
+    margin:8px 0;
+}
+
+.total{
+    font-size:18px;
+    font-weight:bold;
+    color:#111;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .checkout-container{
+        flex-direction:column;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER SAME RAHE -->
+
+<h2 style="text-align:center;margin-top:20px;">Checkout</h2>
+
+<div class="checkout-container">
+
+    <!-- LEFT -->
+    <div class="checkout-form">
+
+        <h2>Shipping Details</h2>
+
+        <div class="input-group">
+            <label>Full Name</label>
+            <input id="name" placeholder="Enter your name">
+        </div>
+
+        <div class="input-group">
+            <label>Mobile Number</label>
+            <input id="mobile" placeholder="Enter mobile number">
+        </div>
+
+        <div class="input-group">
+            <label>Address</label>
+            <input id="address" placeholder="Enter full address">
+        </div>
+
+        <button class="btn" onclick="payment()">
+            Proceed To Payment
+        </button>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="summary">
+
+        <h3>Order Summary</h3>
+
+        <p>Product Price: ₹<span id="price">--</span></p>
+        <p>Delivery: FREE</p>
+
+        <hr>
+
+        <p class="total">Total: ₹<span id="total">--</span></p>
+
+    </div>
+
+</div>
+
+<script>
+
+let user = localStorage.getItem("loginUser")
+
+if(!user){
+    alert("Please Login First")
+    window.location.href="login.html"
+}
+
+let params = new URLSearchParams(window.location.search)
+let id = params.get("id")
+
+/* LOAD PRODUCT PRICE */
+fetch("get_products.php")
+.then(res=>res.json())
+.then(products=>{
+
+let product = products.find(p => Number(p.id) === Number(id))
+
+if(product){
+    document.getElementById("price").innerText = product.price
+    document.getElementById("total").innerText = product.price
+}
+
+})
+
+function payment(){
+
+let name = document.getElementById("name").value
+let mobile = document.getElementById("mobile").value
+let address = document.getElementById("address").value
+
+let user_id = localStorage.getItem("loginUser")
+
+if(name=="" || mobile=="" || address==""){
+    alert("Please fill all details")
+    return
+}
+
+fetch("save_address.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`user_id=${encodeURIComponent(user_id)}&name=${encodeURIComponent(name)}&mobile=${encodeURIComponent(mobile)}&address=${encodeURIComponent(address)}`
+})
+.then(res=>res.text())
+.then(data=>{
+    window.location.href="payment.html?id="+id
+})
+
+}
+
+</script>
+
+</body>
+</html>

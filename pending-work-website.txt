@@ -1,0 +1,9 @@
+email === "admin@gmail.com" && password === "admin123"
+
+
+e-mail verfction
+
+
+checout ui
+rating/re ui
+ 

@@ -1,0 +1,172 @@
+<html>
+    <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Account</title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+
+
+    </head>
+    <body>
+    
+
+<style>
+body{
+    font-family: 'Segoe UI', sans-serif;
+    height:100vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background: linear-gradient(135deg, #1f2f46, #2c3e50);
+}
+
+/* BOX */
+.signup-box{
+    background: #f0f0f0;
+    padding:35px;
+    width:360px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+/* HEADING */
+.signup-box h2{
+    margin-bottom:20px;
+    color:#333;
+}
+
+/* INPUT GROUP */
+.input-group{
+    position:relative;
+    margin-bottom:15px;
+}
+
+.input-group i{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#888;
+}
+
+/* INPUT */
+input{
+    width:100%;
+    padding:12px 12px 12px 40px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    font-size:14px;
+}
+
+input:focus{
+    border-color:#3b5ea7;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    background:#3b5ea7;
+    color:white;
+    border:none;
+    padding:12px;
+    margin-top:15px;
+    cursor:pointer;
+    border-radius:8px;
+    font-weight:bold;
+    font-size:15px;
+}
+
+button:hover{
+    background:#2f4c8a;
+}
+
+/* TEXT */
+p{
+    font-size:14px;
+    margin-top:15px;
+}
+
+a{
+    color:#3b5ea7;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="signup-box">
+
+<h2>Create Account</h2>
+
+<div class="input-group">
+    <i class="fa fa-user"></i>
+    <input type="text" id="name" placeholder="Your Name">
+</div>
+
+<div class="input-group">
+    <i class="fa fa-envelope"></i>
+    <input type="text" id="email" placeholder="Email">
+</div>
+
+<div class="input-group">
+    <i class="fa fa-lock"></i>
+    <input type="password" id="password" placeholder="Password">
+</div>
+
+<button onclick="signup()">Create Account</button>
+
+<p>Already have an account? <a href="login.html">Sign in</a></p>
+
+</div>
+
+
+
+<script>
+function signup(){
+
+let name=document.getElementById("name").value
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
+
+if(name=="" || email=="" || password==""){
+alert("Please fill all fields")
+return
+}
+
+fetch("signup.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+})
+.then(res=>res.text())
+.then(data=>{
+
+if(data=="success"){
+
+alert("Account Created Successfully")
+
+window.location.href="login.html"
+
+}else{
+
+alert("Error creating account")
+
+}
+
+})
+
+}
+</script>
+
+</body>
+</html>

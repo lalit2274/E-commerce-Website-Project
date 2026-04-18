@@ -1,0 +1,88 @@
+<html>
+    <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta charset="UTF-8">
+        <title>Customer Service</title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+    <body>
+        <header>  
+            <div class="navbar">
+                <div  class="page border">
+                    <h2  align="center">customer service</h2>
+                </div>
+
+                
+                </div>
+
+
+            </div>
+
+            <div class="panel">
+                   <a href="index.html" style="color:black">Home</a>
+           
+        </header>
+
+
+        <main class="customer-service">
+            <div class="cs-form">
+    <h2>Contact Support</h2>
+
+    <input type="text" id="name" placeholder="Your Name">
+
+    <input type="email" id="email" placeholder="Your Email">
+
+    <select id="issue">
+        <option value="">Select Issue</option>
+        <option>Order Problem</option>
+        <option>Payment Issue</option>
+        <option>Delivery Delay</option>
+        <option>Return & Refund</option>
+        <option>Account Problem</option>
+    </select>
+
+    <textarea id="message" placeholder="Write your issue..."></textarea>
+
+    <button onclick="sendMessage()">Submit</button>
+</div>
+    
+
+   
+<script>
+function sendMessage(){
+
+let name = document.getElementById("name").value;
+let email = document.getElementById("email").value;
+let issue = document.getElementById("issue").value;
+let message = document.getElementById("message").value;
+
+if(name=="" || email=="" || issue=="" || message==""){
+    alert("Please fill all fields");
+    return;
+}
+
+fetch("support.php",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:`name=${name}&email=${email}&issue=${issue}&message=${message}`
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Your issue submitted successfully");
+
+
+// 🔥 FORM CLEAR
+document.getElementById("name").value = "";
+document.getElementById("email").value = "";
+document.getElementById("issue").value = "";
+document.getElementById("message").value = "";
+
+});
+}
+</script>
+    </body>
+</html>
